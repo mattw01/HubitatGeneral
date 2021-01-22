@@ -302,6 +302,10 @@ private mainPage() {
                 }
         }
         
+        section([mobileOnly:true], "Options") {
+            label(title: "Assign a name (optional)", required: false)
+        }
+
         section("Version Information") {
             paragraph "Activity Viewer " + version()
         }
