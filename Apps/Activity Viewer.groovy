@@ -112,7 +112,9 @@ def initialize() {
 private buildActivityMap() {
     def resp = []
     def today = new Date()
-    def then = timeToday(today.format("HH:mm"), TimeZone.getTimeZone('UTC')) - 1
+    def then = today - 1
+    log.debug "today " + today
+    log.debug "then " + then
     if(actuators) {
         actuators.each {
         resp << it?.eventsBetween(then, today, [max: 200])?.findAll{"$it.source" == "DEVICE"}?.collect{[description: it.description, descriptionText: it.descriptionText, displayName: it.displayName, date: it.date, name: it.name, unit: it.unit, source: it.source, value: it.value]}
@@ -125,7 +127,7 @@ private buildActivityMap() {
     }
     //if(location) {
     //    def today = new Date()
-    //    def then = timeToday(today.format("HH:mm"), TimeZone.getTimeZone('UTC')) - 1
+    //    def then = today - 1
     //    resp << location?.eventsBetween(then, today, [max: 200])?.collect{[description: it.description, descriptionText: it.descriptionText, displayName: it.displayName, date: it.date, name: it.name, unit: it.unit, source: it.source, value: it.value]}
     //}
     resp.flatten().sort{ it.date }
